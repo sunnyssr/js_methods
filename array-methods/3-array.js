@@ -14,6 +14,7 @@ var words = [
 
 // Write a function uniqueArray that receives an array of words as a parameter. And remove the duplicates, and return a new array. 
 // (indexOf)
+let uniqueArray = (arrayOfWords) => arrayOfWords.sort().filter((currentValue, index, arr) => (arr[index-1] === currentValue) ? false : true);
 
 
 
@@ -29,7 +30,7 @@ var words2 = [
 ];
 
 // Write a function doesWordExist that will take in an array of words as one argument, and a word to search for as the other. Return true if it exists, otherwise, return false. Don't use indexOf for this one.
-
+let doesWordExist = (arrayOfWords, word) => (arrayOfWords.filter(currentValue => (currentValue === word)).length>0)
 
 
 
@@ -49,7 +50,7 @@ var words3 = [
 
 
 // Write a function howManyTimes that will take in an array of words as one argument, and a word to search for as the other. The function will return the number of times that word appears in the array.
-
+howManyTimes = (arrayOfWords, word) => arrayOfWords.filter(currentValue => (currentValue === word)).length;
 
 
 
@@ -73,6 +74,8 @@ let data = [
     pop: 263991379,
   }
 ]
+// Code Below
+let sumUp = data.reduce((accumulator, currentValue) => accumulator + ((currentValue.country != 'China') ? currentValue.pop : 0), 0);
 
 
 // Use reduce method and summorize the collection like
@@ -91,7 +94,16 @@ const fruitBasket = [
   'fig'
 ];
 
+let summorizeFruits = fruitBasket.reduce((summarizeObj, currentValue) => {
+  
+  if(currentValue in summarizeObj) {
+    summarizeObj[currentValue]++;
+  } else {
+    summarizeObj[currentValue] = 1;
+  }
+  return summarizeObj;
 
+}, {});
 
 // Bonus Question (Solve only if you have time)
 var matrix = [
@@ -118,3 +130,17 @@ var matrix = [
 ];
 // In the 20×20 grid above What is the greatest product of four adjacent numbers in the same direction (up, down, left, right)?
 // Write a function greatestProduct to find the answer!
+let greatestProduct = (grid) => {
+  let arr = [];
+  for(let y = 0; y <= 16; y++){
+    for(let x = 0; x < 20; x++){
+      arr.push(grid[y][x] * grid[y+1][x] * grid[y+2][x] * grid[y+3][x]);
+    }
+  }
+  for(let y = 0; y < 20; y++){
+    for(let x = 0; x <= 16; x++){
+      arr.push(grid[y][x] * grid[y][x+1] * grid[y][x+2] * grid[y][x+3]);
+    }
+  }
+  return arr.reduce((maxValue, CurrentValue) => Math.max(maxValue, CurrentValue));
+}
